@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- HTML5 Boilerplate -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+    <link rel="stylesheet" href="css/editor.css"/>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+</head>
+
+    <body>
+        <header>
+            <div class="title"><h1>Porbas Editor</h1></div>
+        </header>
+        <div class="editor">
+        <aside class="palette">
+            <!-- The tray for the development items -->
+            <div class="options">
+                <h2>Elements</h2>
+                <ul class="options-list">
+                    <li class="item" draggable="true" data-type="HTML">Unordered list</li>
+                    <li class="item" draggable="true" data-type="HTML">Ordered List</li>
+                </ul>
+                <h2>Containers</h2>
+                <h2>Forms</h2>
+            </div>
+        </aside>
+        
+        <!-- The holder for the acutal edited content -->
+        <div class="canvas">
+            <div class="canvas-locator">
+                <!-- this holds the location of the current/active container -->
+                <ul>
+                    <li>div.container</li>
+                    <li>span.class</li>
+                </ul>
+            </div>
+            <div class="canvas-container">
+                <iframe src="framework.html" class="canvas-frame"></iframe>
+            </div>
+        </div>
+        </div>
+        <footer></footer>
+        <script>
+            (function(){
+//                $('.item').draggable({
+//                    iframeFix: true,
+//                    helper: 'clone',
+//                    refreshPositions: true
+//                });
+                /* Prevent default HTML5 draggable behavior */
+                $("[draggable]").on('dragstart', function(event) {
+                    event.originalEvent.dataTransfer.setData($(this).attr('data-type'), $(this).text()); //WE can use this line to get the actual data content from another location?
+                }).on('dragend', function(event) {
+                    event.preventDefault();
+                });
+                
+                /* Dropzone support */
+                $(".dropzone").on('dragover', function(event) {
+                    //add preventDefault to stop default behaviour
+                    event.preventDefault();
+                    $(this).css('opacity', '.5');
+                }).on('dragleave', function(event) {
+                    //add preventDefault to stop default behaviour
+                    event.preventDefault();
+                    $(this).css('opacity', 1);
+                });
+            })();
+        </script>
+    </body>
+</html>
